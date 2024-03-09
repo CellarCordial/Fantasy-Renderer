@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.props" Condition="Exists('..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{5f1e2809-44b9-43b8-8548-b7e62d536a3e}</ProjectGuid>
+    <RootNamespace>FantasyRenderer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_SILENCE_CXX20_CISO646_REMOVED_WARNING</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D3D12\D3D12Buffer.cpp" />
+    <ClCompile Include="D3D12\D3D12CommandList.cpp" />
+    <ClCompile Include="D3D12\D3D12CommandQueue.cpp" />
+    <ClCompile Include="D3D12\D3D12DescriptorHeap.cpp" />
+    <ClCompile Include="D3D12\D3D12Device.cpp" />
+    <ClCompile Include="D3D12\D3D12Fence.cpp" />
+    <ClCompile Include="D3D12\D3D12PipelineState.cpp" />
+    <ClCompile Include="D3D12\D3D12PipelineStateCache.cpp" />
+    <ClCompile Include="D3D12\D3D12ResourceAllocator.cpp" />
+    <ClCompile Include="D3D12\D3D12ResourceLocation.cpp" />
+    <ClCompile Include="D3D12\D3D12ShaderCache.cpp" />
+    <ClCompile Include="D3D12\D3D12ShaderCompiler.cpp" />
+    <ClCompile Include="D3D12\D3D12SwapChain.cpp" />
+    <ClCompile Include="D3D12\D3D12Texture.cpp" />
+    <ClCompile Include="External\imgui\imgui.cpp" />
+    <ClCompile Include="External\imgui\imgui_demo.cpp" />
+    <ClCompile Include="External\imgui\imgui_draw.cpp" />
+    <ClCompile Include="External\imgui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="External\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="External\imgui\imgui_tables.cpp" />
+    <ClCompile Include="External\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Model\LightManager.cpp" />
+    <ClCompile Include="Model\ModelLoader.cpp" />
+    <ClCompile Include="Pass\Sample\GBufferPass.cpp" />
+    <ClCompile Include="Pass\Sample\SamplePass.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraph.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphBuilder.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphPass.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphPool.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphResource.cpp" />
+    <ClCompile Include="Render\Camera.cpp" />
+    <ClCompile Include="Render\Editor.cpp" />
+    <ClCompile Include="Render\Renderer.cpp" />
+    <None Include="Shaders\Sample.hlsl" />
+    <ClCompile Include="Utility\ImageLoader.cpp" />
+    <ClCompile Include="Window\Render.cpp" />
+    <ClCompile Include="Window\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D3D12\D3D12Buffer.h" />
+    <ClInclude Include="D3D12\D3D12CommandList.h" />
+    <ClInclude Include="D3D12\D3D12CommandQueue.h" />
+    <ClInclude Include="D3D12\D3D12ConstantBuffer.h" />
+    <ClInclude Include="D3D12\D3D12Defines.h" />
+    <ClInclude Include="D3D12\D3D12Descriptor.h" />
+    <ClInclude Include="D3D12\D3D12DescriptorHeap.h" />
+    <ClInclude Include="D3D12\D3D12Device.h" />
+    <ClInclude Include="D3D12\D3D12Fence.h" />
+    <ClInclude Include="D3D12\D3D12Interface.h" />
+    <ClInclude Include="D3D12\D3D12PipelineState.h" />
+    <ClInclude Include="D3D12\D3D12PipelineStateCache.h" />
+    <ClInclude Include="D3D12\D3D12ResourceAllocator.h" />
+    <ClInclude Include="D3D12\D3D12ResourceLocation.h" />
+    <ClInclude Include="D3D12\D3D12ShaderCache.h" />
+    <ClInclude Include="D3D12\D3D12ShaderCompiler.h" />
+    <ClInclude Include="D3D12\D3D12SwapChain.h" />
+    <ClInclude Include="D3D12\D3D12Texture.h" />
+    <ClInclude Include="Defines.h" />
+    <ClInclude Include="External\d3dx12\d3dx12.h" />
+    <ClInclude Include="External\dxc\d3d12shader.h" />
+    <ClInclude Include="External\dxc\dxcapi.h" />
+    <ClInclude Include="External\dxc\include\dxc\d3d12shader.h" />
+    <ClInclude Include="External\dxc\include\dxc\dxcapi.h" />
+    <ClInclude Include="External\imgui\imconfig.h" />
+    <ClInclude Include="External\imgui\imgui.h" />
+    <ClInclude Include="External\imgui\imgui_impl_dx12.h" />
+    <ClInclude Include="External\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="External\imgui\imgui_internal.h" />
+    <ClInclude Include="External\imgui\imstb_rectpack.h" />
+    <ClInclude Include="External\imgui\imstb_textedit.h" />
+    <ClInclude Include="External\imgui\imstb_truetype.h" />
+    <ClInclude Include="External\stbimage\stb_image.h" />
+    <ClInclude Include="External\stbimage\stb_image_resize2.h" />
+    <ClInclude Include="External\tinygltf\json.hpp" />
+    <ClInclude Include="External\tinygltf\stb_image.h" />
+    <ClInclude Include="External\tinygltf\stb_image_write.h" />
+    <ClInclude Include="External\tinygltf\tiny_gltf.h" />
+    <ClInclude Include="Model\LightManager.h" />
+    <ClInclude Include="Model\ModelDefines.h" />
+    <ClInclude Include="Model\ModelLoader.h" />
+    <ClInclude Include="MultiThreading\ConcurrentBuddyAllocator.h" />
+    <ClInclude Include="MultiThreading\ConcurrentFreeListAllocator.h" />
+    <ClInclude Include="MultiThreading\ConcurrentList.h" />
+    <ClInclude Include="MultiThreading\ConcurrentRingAllocator.h" />
+    <ClInclude Include="MultiThreading\ConcurrentSegListAllocator.h" />
+    <ClInclude Include="MultiThreading\LockFreeQueue.h" />
+    <ClInclude Include="MultiThreading\ThreadCtrl.h" />
+    <ClInclude Include="Pass\PassDefines.h" />
+    <ClInclude Include="Pass\Sample\GBufferPass.h" />
+    <ClInclude Include="Pass\Sample\SamplePass.h" />
+    <ClInclude Include="RenderGraph\RenderGraph.h" />
+    <ClInclude Include="RenderGraph\RenderGraphBuilder.h" />
+    <ClInclude Include="RenderGraph\RenderGraphDefines.h" />
+    <ClInclude Include="RenderGraph\RenderGraphPass.h" />
+    <ClInclude Include="RenderGraph\RenderGraphPool.h" />
+    <ClInclude Include="RenderGraph\RenderGraphResource.h" />
+    <ClInclude Include="Render\Camera.h" />
+    <ClInclude Include="Render\Editor.h" />
+    <ClInclude Include="Render\Renderer.h" />
+    <ClInclude Include="TaskFlow\ConcurrentQueue.h" />
+    <ClInclude Include="TaskFlow\FunctionWrapper.h" />
+    <ClInclude Include="TaskFlow\Task.h" />
+    <ClInclude Include="TaskFlow\TaskExecutor.h" />
+    <ClInclude Include="TaskFlow\TaskFlow.h" />
+    <ClInclude Include="TaskFlow\TaskFlowInterface.h" />
+    <ClInclude Include="TaskFlow\TaskGraph.h" />
+    <ClInclude Include="TaskFlow\TaskQueue.h" />
+    <ClInclude Include="TaskFlow\ThreadPool.h" />
+    <ClInclude Include="Utility\AlignUtil.h" />
+    <ClInclude Include="Utility\CommonMath.h" />
+    <ClInclude Include="Utility\Delegate.h" />
+    <ClInclude Include="Utility\Exception.h" />
+    <ClInclude Include="Utility\FileUtil.h" />
+    <ClInclude Include="Utility\FormatConvert.h" />
+    <ClInclude Include="Utility\ImageLoader.h" />
+    <ClInclude Include="Utility\Macros.h" />
+    <ClInclude Include="Utility\Serialization.h" />
+    <ClInclude Include="Utility\TemplateType.h" />
+    <ClInclude Include="Utility\Timer.h" />
+    <ClInclude Include="Window\Render.h" />
+    <ClInclude Include="Window\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\10381718147657362067.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\10388182081421875623.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\11474523244911310074.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\11490520546946913238.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\11872827283454512094.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\11968150294050148237.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\1219024358953944284.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\12501374198249454378.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\13196865903111448057.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\13824894030729245199.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\13982482287905699490.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\14118779221266351425.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\14170708867020035030.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\14267839433702832875.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\14650633544276105767.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\15295713303328085182.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\15722799267630235092.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\16275776544635328252.png" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\16299174074766089871.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\16885566240357350108.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\17556969131407844942.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\17876391417123941155.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2051777328469649772.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2185409758123873465.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2299742237651021498.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2374361008830720677.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2411100444841994089.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2775690330959970771.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\2969916736137545357.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\332936164838540657.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\3371964815757888145.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\3455394979645218238.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\3628158980083700836.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\3827035219084910048.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\4477655471536070370.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\4601176305987539675.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\466164707995436622.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\4675343432951571524.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\4871783166746854860.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\4910669866631290573.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\4975155472559461469.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\5061699253647017043.png" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\5792855332885324923.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\5823059166183034438.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\6047387724914829168.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\6151467286084645207.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\6593109234861095314.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\6667038893015345571.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\6772804448157695701.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\7056944414013900257.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\715093869573992647.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\7268504077753552595.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\7441062115984513793.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\755318871556304029.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\759203620573749278.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\7645212358685992005.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\7815564343179553343.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8006627369776289000.png" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8051790464816141987.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8114461559286000061.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8481240838833932244.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8503262930880235456.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8747919177698443163.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8750083169368950601.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8773302468495022225.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\8783994986360286082.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\9288698199695299068.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\9916269861720640319.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\Sponza.bin" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\Sponza.gltf" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\glTF\white.png" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\README.md" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\screenshot\large.jpg" />
+    <Content Include="Asset\GLTFModel\Sponza\Sponza\screenshot\screenshot.jpg" />
+    <Content Include="Asset\ShaderCache\Sample_PixelShader_DEBUG.bin" />
+    <Content Include="Asset\ShaderCache\Sample_VertexShader_DEBUG.bin" />
+    <Content Include="External\dxc\dxcompiler.dll" />
+    <Content Include="External\dxc\dxcompiler.lib" />
+    <Content Include="External\dxc\lib\dxcompiler.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.targets" Condition="Exists('..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Direct3D.D3D12.1.611.2\build\native\Microsoft.Direct3D.D3D12.targets'))" />
+  </Target>
+</Project>
