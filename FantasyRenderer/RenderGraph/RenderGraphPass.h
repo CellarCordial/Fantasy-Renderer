@@ -33,11 +33,15 @@ protected:
     void BeginRenderPass();
     void EndRenderPass();
     void InActiveResources();
+    void AsyncComputeQueue();
     
 protected:
     RenderGraphPassDesc Desc;
     RenderGraphBuilder* Builder;
     D3D12CommandList* CmdList;
+
+    RenderGraphPass* SignalPass;    // 需要signal该pass
+    RenderGraphPass* WaitPass;      // 需要wait该pass
 
     std::vector<RenderGraphBuffer*> ReadBuffers;
     std::vector<RenderGraphBuffer*> WriteBuffers;

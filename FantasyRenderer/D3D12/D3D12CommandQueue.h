@@ -16,6 +16,7 @@ public:
     void ExecuteCommandLists(std::span<D3D12CommandList*> InCmdLists) const;
     
     void Signal(const D3D12Fence* InFence, UINT64 InFenceValue) const;
+    void Wait(const D3D12Fence* InFence, UINT64 InFenceValue) const;
 
     ID3D12CommandQueue* GetNative() const { return CmdQueue.Get(); }
 

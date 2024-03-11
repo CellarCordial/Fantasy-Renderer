@@ -16,6 +16,11 @@ void D3D12CommandQueue::Signal(const D3D12Fence* InFence, UINT64 InFenceValue) c
     ThrowIfFailed(CmdQueue->Signal(InFence->GetNative(), InFenceValue));
 }
 
+void D3D12CommandQueue::Wait(const D3D12Fence* InFence, UINT64 InFenceValue) const
+{
+    ThrowIfFailed(CmdQueue->Wait(InFence->GetNative(), InFenceValue));
+}
+
 void D3D12CommandQueue::ExecuteCommandLists(std::span<D3D12CommandList*> InCmdLists) const
 {
     std::vector<ID3D12CommandList*> CmdLists(InCmdLists.size());
@@ -23,5 +28,5 @@ void D3D12CommandQueue::ExecuteCommandLists(std::span<D3D12CommandList*> InCmdLi
     {
         CmdLists[ix] = InCmdLists[ix]->GetNative();
     }
-    CmdQueue->ExecuteCommandLists(static_cast<UINT>(InCmdLists.size()), CmdLists.data());
+    if (CmdLists.size() != 0) CmdQueue->ExecuteCommandLists(static_cast<UINT>(InCmdLists.size()), CmdLists.data());
 }

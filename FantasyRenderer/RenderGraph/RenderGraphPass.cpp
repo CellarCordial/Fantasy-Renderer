@@ -71,8 +71,8 @@ void RenderGraphPass::ResourceAllocationAndTransition()
     {
         FrameResource* FrameResourceData = Builder->GetFrameResource();
         std::lock_guard LockGuard(FrameResourceData->CmdListsMutex);
-        FrameResourceData->CmdLists.push_back(CmdList);     // 为了防止并行时资源状态转换的混乱, 需锁住并抢占一个位置
-
+        FrameResourceData->CmdLists.push_back(CmdList);     // 为了防止并行时一系列资源的混乱, 需锁住并抢占一个位置
+        AsyncComputeQueue();
         std::ranges::for_each(std::begin(ReadBuffers), std::end(ReadBuffers), AllocateAndTransitionBuffer);
         std::ranges::for_each(std::begin(WriteBuffers), std::end(WriteBuffers), AllocateAndTransitionBuffer);
         std::ranges::for_each(std::begin(ReadTextures), std::end(ReadTextures), AllocateAndTransitionTexture);
@@ -131,6 +131,18 @@ void RenderGraphPass::InActiveResources()
     );
 }
 
+void RenderGraphPass::AsyncComputeQueue()
+{
+    if (SignalPass != nullptr)
+    {
+        SignalPass->WaitPass = this;
+    }
+    if (WaitPass != nullptr && WaitPass->CmdList->GetSignalCmdList() == nullptr)    // 已经有命令在等了，我在后头还等什么
+    {
+        CmdList->SetWaitCmdList(WaitPass->CmdList);
+        WaitPass->CmdList->SetSignalCmdList(CmdList);
+    }
+}
 
 
 

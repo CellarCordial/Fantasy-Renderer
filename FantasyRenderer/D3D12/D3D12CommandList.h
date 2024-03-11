@@ -44,10 +44,18 @@ public:
 
     ID3D12GraphicsCommandList* GetNative() const { return CmdList.Get(); }
     D3D12Device* GetDevice() const { return Device;}
+    ED3D12CommandType GetType() const { return Type; }
 
     void AddUploadBuffer(D3D12Buffer* InBuffer) { PendingUploadBuffers.push_back(InBuffer); }
     void FreeUploadBuffers();
 
+    void SetSignalCmdList(D3D12CommandList* InCmdList) { SignalCmdList = InCmdList; }
+    void SetWaitCmdList(D3D12CommandList* InCmdList) { WaitCmdList = InCmdList; }
+    void SetAsyncFenceValue(UINT64 InFenceValue) { AsyncComputeFenceValue = InFenceValue; }
+    D3D12CommandList* GetSignalCmdList() const { return SignalCmdList; }
+    D3D12CommandList* GetWaitCmdList() const { return WaitCmdList; }
+    UINT64 GetAsyncFenceValue() const { return AsyncComputeFenceValue; }
+    
 private:
 
 private:
@@ -59,4 +67,8 @@ private:
 
     std::vector<D3D12_RESOURCE_BARRIER> PendingBarriers;
     std::vector<D3D12Buffer*> PendingUploadBuffers;
+
+    D3D12CommandList* SignalCmdList;
+    D3D12CommandList* WaitCmdList;
+    UINT64 AsyncComputeFenceValue = 0;
 };

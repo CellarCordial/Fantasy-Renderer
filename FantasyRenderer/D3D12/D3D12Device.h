@@ -17,6 +17,7 @@ public:
     void ResizeWindow();
     
     void ExecuteGraphicsCommandLists(std::span<D3D12CommandList*>) const;
+    void ExecuteComputeCommandLists(std::span<D3D12CommandList*>) const;
     D3D12Descriptor AllocateCPUDescriptor(ED3D12DescriptorType InType) const;
     D3D12Descriptor AllocateGPUDescriptor(UINT32 InNum = 1) const;
     void FinishFrameAllocation();
@@ -34,6 +35,7 @@ public:
     ID3D12Device* GetNative() const { return Device.Get(); }
     IDXGIFactory4* GetFactory() const { return Factory.Get(); }
     D3D12CommandQueue* GetGraphicsCmdQueue() const { return GraphicsCmdQueue.get(); }
+    D3D12CommandQueue* GetComputeCmdQueue() const { return ComputeCmdQueue.get(); }
     D3D12ResourceAllocator* GetResourceAllocator() const { return ResourceAllocator.get(); }
     ID3D12DescriptorHeap* GetGPUDescriptorHeap() const { return GPUDescriptorHeap->GetDescriptorHeap(); }
     ID3D12RootSignature* GetRootSignature() const { return RootSignature.Get(); }
@@ -56,6 +58,7 @@ private:
     std::unique_ptr<D3D12Fence> Fence;
     
     std::unique_ptr<D3D12CommandQueue> GraphicsCmdQueue;
+    std::unique_ptr<D3D12CommandQueue> ComputeCmdQueue;
     Microsoft::WRL::ComPtr<ID3D12RootSignature> RootSignature;
     std::unique_ptr<D3D12SwapChain> SwapChain;
 

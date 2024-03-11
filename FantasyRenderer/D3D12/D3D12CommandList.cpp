@@ -22,6 +22,8 @@ void D3D12CommandList::Begin()
 {
     FreeUploadBuffers();
 
+    WaitCmdList = nullptr; SignalCmdList = nullptr;
+
     CmdAllocator->Reset();
     CmdList->Reset(CmdAllocator.Get(), nullptr);
 

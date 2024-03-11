@@ -58,7 +58,7 @@ private:
 
     void SetResourcesLastPass();
     void ReleaseCommandLists();
-    
+
 private:
     UINT64 FrameIndex = 0;
     
@@ -69,8 +69,11 @@ private:
     TaskFlow ExecuteFlow;
     TaskExecutor Executor;
     
-    std::unique_ptr<D3D12Fence> Fence;
-    UINT64 FenceValue = 0;
+    std::unique_ptr<D3D12Fence> GraphicsFence;
+    UINT64 GraphicsFenceValue = 0;
+
+    std::unique_ptr<D3D12Fence> ComputeFence;
+    UINT64 ComputeFenceValue = 0;
 
     std::vector<std::unique_ptr<FrameResource>> FrameResources;
     UINT32 ThreadIndex = 0;

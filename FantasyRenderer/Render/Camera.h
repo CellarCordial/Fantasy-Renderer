@@ -55,6 +55,9 @@ public:
     DirectX::XMMATRIX GetProj() const;
 
 private:
+    static void CursorCycle(INT32& InOutX, INT32& InOutY);
+
+private:
     DirectX::XMFLOAT3 Position = { 0.0f, 0.0f, 0.0f };
     DirectX::XMFLOAT3 Look = { 0.0f, 0.0f, 1.0f };
     DirectX::XMFLOAT3 Up = { 0.0f, 1.0f, 0.0f };

@@ -46,6 +46,7 @@ D3D12Device::D3D12Device()
     PipelineStateCache = std::make_unique<D3D12PipelineStateCache>(this, ShaderCache.get());
 
     GraphicsCmdQueue = std::make_unique<D3D12CommandQueue>(this, ED3D12CommandType::Graphics);
+    ComputeCmdQueue = std::make_unique<D3D12CommandQueue>(this, ED3D12CommandType::Compute);
     Fence = std::make_unique<D3D12Fence>(this);
     
     D3D12SwapChainDesc SwapChainDesc;
@@ -80,6 +81,11 @@ void D3D12Device::ResizeWindow()
 void D3D12Device::ExecuteGraphicsCommandLists(std::span<D3D12CommandList*> InCmdLists) const
 {
     GraphicsCmdQueue->ExecuteCommandLists(InCmdLists);
+}
+
+void D3D12Device::ExecuteComputeCommandLists(std::span<D3D12CommandList*> InCmdLists) const
+{
+    ComputeCmdQueue->ExecuteCommandLists(InCmdLists);
 }
 
 void D3D12Device::CreateRootSignature()

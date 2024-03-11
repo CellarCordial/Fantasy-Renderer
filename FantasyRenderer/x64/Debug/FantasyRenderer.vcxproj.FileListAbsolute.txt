@@ -1,0 +1,4 @@
+D:\Document\Code\FantasyRenderer\x64\Debug\D3D12\D3D12Core.dll
+D:\Document\Code\FantasyRenderer\x64\Debug\D3D12\D3D12Core.pdb
+D:\Document\Code\FantasyRenderer\x64\Debug\D3D12\D3D12SDKLayers.dll
+D:\Document\Code\FantasyRenderer\x64\Debug\D3D12\D3D12SDKLayers.pdb

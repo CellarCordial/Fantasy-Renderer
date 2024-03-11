@@ -7,23 +7,27 @@ Camera::Camera()
     SetLens(0.25f * DirectX::XM_PI, static_cast<float>(Window::GetWidth()) / static_cast<float>(Window::GetHeight()), 1.0f, 1000.0f);
 }
 
-void Camera::MouseAction(EMouseActionType InType, INT32 X, INT32 Y, bool Down)
+void Camera::MouseAction(EMouseActionType InType, INT32 X, INT32 Y, bool RightDown)
 {
     switch (InType)
     {
     case EMouseActionType::Down:
+        if (RightDown) ShowCursor(false);
         UpdateMousePosition(X, Y);
         SetCapture(Window::GetHWND());
         break;
     case EMouseActionType::Up:
+        if (RightDown) ShowCursor(true);
         ReleaseCapture();
         break;
     case EMouseActionType::Move:
-        if(Down)
+        if(RightDown)
         {
             Pitch(Y);
             Yall(X);
             UpdateViewMatrix();
+
+            CursorCycle(X, Y);
         }
         UpdateMousePosition(X, Y);
         break;
@@ -251,4 +255,46 @@ float Camera::GetFarWindowWidth() const
 float Camera::GetFarWindowHeight() const
 {
     return FarWindowHeight;
+}
+
+void Camera::CursorCycle(INT32& X, INT32& Y)
+{
+    RECT ClientRect;
+    GetClientRect(Window::GetHWND(), &ClientRect);
+    if (X > ClientRect.right)
+    {
+        POINT CursorPos = { X, Y };
+        POINT ClientPoint = { ClientRect.left, ClientRect.top };
+        ClientToScreen(Window::GetHWND(), &ClientPoint);
+        ClientToScreen(Window::GetHWND(), &CursorPos);
+        SetCursorPos(ClientPoint.x, CursorPos.y);
+        X = ClientRect.left;
+    }
+    if (X < ClientRect.left)
+    {
+        POINT CursorPos = { X, Y };
+        POINT ClientPoint = { ClientRect.right, ClientRect.bottom };
+        ClientToScreen(Window::GetHWND(), &ClientPoint);
+        ClientToScreen(Window::GetHWND(), &CursorPos);
+        SetCursorPos(ClientPoint.x, CursorPos.y);
+        X = ClientRect.right;
+    }
+    if (Y > ClientRect.bottom)
+    {
+        POINT CursorPos = { X, Y };
+        POINT ClientPoint = { ClientRect.left, ClientRect.top };
+        ClientToScreen(Window::GetHWND(), &ClientPoint);
+        ClientToScreen(Window::GetHWND(), &CursorPos);
+        SetCursorPos(CursorPos.x, ClientPoint.y);
+        Y = ClientRect.top;
+    }
+    if (Y < ClientRect.top)
+    {
+        POINT CursorPos = { X, Y };
+        POINT ClientPoint = { ClientRect.right, ClientRect.bottom };
+        ClientToScreen(Window::GetHWND(), &ClientPoint);
+        ClientToScreen(Window::GetHWND(), &CursorPos);
+        SetCursorPos(CursorPos.x, ClientPoint.y);
+        Y = ClientRect.bottom;
+    }
 }

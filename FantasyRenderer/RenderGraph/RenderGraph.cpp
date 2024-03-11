@@ -5,8 +5,9 @@ RenderGraph::RenderGraph()
 {
     Device = std::make_unique<D3D12Device>();
     ResourcePool = std::make_unique<RenderGraphResourcePool>(Device.get());
-    Fence = std::make_unique<D3D12Fence>(Device.get());
-    
+    GraphicsFence = std::make_unique<D3D12Fence>(Device.get());
+    ComputeFence = std::make_unique<D3D12Fence>(Device.get());
+
     for (UINT32 ix = 0; ix < RenderThreadNum; ++ix)
     {
         FrameResources.emplace_back(std::make_unique<FrameResource>(Device.get()));
@@ -34,7 +35,9 @@ void RenderGraph::Setup()
         Pass->Setup();
         for (auto& Resource : FrameResources)
         {
-            Resource->CmdLists.emplace_back(new D3D12CommandList(Device.get(), ED3D12CommandType::Graphics));
+            ED3D12CommandType CommandType = ED3D12CommandType::Graphics;
+            if (Pass->Desc.Type == ERenderGraphPassType::Compute) CommandType = ED3D12CommandType::Compute;
+            Resource->CmdLists.emplace_back(new D3D12CommandList(Device.get(), CommandType));
         }
     }
 }
@@ -60,7 +63,7 @@ void RenderGraph::Compile()
         // Set task flow
         for (UINT32 j = i + 1; j < Passes.size(); ++j)
         {
-            const RenderGraphPass* OtherPass = Passes[j].get();
+            RenderGraphPass* OtherPass = Passes[j].get();
 
             const auto Iterator1 = std::ranges::find_if(
                 std::begin(OtherPass->ReadTextures),
@@ -75,7 +78,15 @@ void RenderGraph::Compile()
                 }
             );
 
-            if (Iterator1 != std::end(OtherPass->ReadTextures)) { Tasks[i].Precede(Tasks[j]); continue; }
+            if (Iterator1 != std::end(OtherPass->ReadTextures))
+            {
+                // 即一个为Graphics一个为compute或者反过来
+                if (CurrentPass->Desc.Type !=  OtherPass->Desc.Type)    
+                {
+                    CurrentPass->SignalPass = OtherPass;
+                }
+                Tasks[i].Precede(Tasks[j]); continue;
+            }
 
             const auto Iterator2 = std::ranges::find_if(
                 std::begin(OtherPass->ReadBuffers),
@@ -90,7 +101,14 @@ void RenderGraph::Compile()
                 }
             );
 
-            if (Iterator2 != std::end(OtherPass->ReadBuffers)) { Tasks[i].Precede(Tasks[j]); }
+            if (Iterator2 != std::end(OtherPass->ReadBuffers))
+            {
+                if (CurrentPass->Desc.Type !=  OtherPass->Desc.Type)    // 即一个为Graphics一个为compute或者反过来
+                {
+                    CurrentPass->SignalPass = OtherPass;
+                }
+                Tasks[i].Precede(Tasks[j]);
+            }
         }
     }
     
@@ -134,16 +152,68 @@ void RenderGraph::Render(UINT32 InThreadIndex)
 
 void RenderGraph::Submit(UINT32 InThreadIndex)
 {
-    Device->ExecuteGraphicsCommandLists(FrameResources[InThreadIndex]->CmdLists);
+    auto& CmdLists = FrameResources[InThreadIndex]->CmdLists;
+
+    std::vector<D3D12CommandList*> GraphicsCmdLists;
+    std::vector<D3D12CommandList*> ComputeCmdLists;
+    for (const auto& CmdList : CmdLists)
+    {
+        const ED3D12CommandType CmdListType = CmdList->GetType();
+        if (CmdListType == ED3D12CommandType::Graphics)
+        {
+            if (D3D12CommandList* WaitCmdList = CmdList->GetWaitCmdList())
+            {
+                Device->ExecuteGraphicsCommandLists(GraphicsCmdLists);
+                Device->GetGraphicsCmdQueue()->Wait(ComputeFence.get(), WaitCmdList->GetAsyncFenceValue());
+
+                GraphicsCmdLists.clear();
+            }
+            
+            GraphicsCmdLists.push_back(CmdList);
+
+            if (D3D12CommandList* SignalCmdList = CmdList->GetSignalCmdList())
+            {
+                Device->ExecuteGraphicsCommandLists(GraphicsCmdLists);
+                Device->GetGraphicsCmdQueue()->Signal(ComputeFence.get(), ++ComputeFenceValue);
+                SignalCmdList->SetAsyncFenceValue(ComputeFenceValue);
+
+                GraphicsCmdLists.clear();
+            }
+        }
+        else if (CmdListType == ED3D12CommandType::Compute)
+        {
+            if (D3D12CommandList* WaitCmdList = CmdList->GetWaitCmdList())
+            {
+                Device->ExecuteComputeCommandLists(ComputeCmdLists);
+                Device->GetComputeCmdQueue()->Wait(ComputeFence.get(), WaitCmdList->GetAsyncFenceValue());
+
+                ComputeCmdLists.clear();
+            }
+            
+            ComputeCmdLists.push_back(CmdList);
+            
+            if (D3D12CommandList* SignalCmdList = CmdList->GetSignalCmdList())
+            {
+                Device->ExecuteComputeCommandLists(ComputeCmdLists);
+                Device->GetComputeCmdQueue()->Signal(ComputeFence.get(), ++ComputeFenceValue);
+                SignalCmdList->SetAsyncFenceValue(ComputeFenceValue);
+
+                ComputeCmdLists.clear();
+            }
+        }
+    }
+
+    Device->ExecuteGraphicsCommandLists(GraphicsCmdLists);      // 再怎么样也有CopyToBackBufferPass兜底
+    
     Device->GetSwapChain()->Present(InThreadIndex);
 
-    FrameResources[InThreadIndex]->FenceValue = FenceValue++;
-    Device->GraphicsCmdQueueSignal(Fence.get(), &FrameResources[InThreadIndex]->FenceValue);
+    FrameResources[InThreadIndex]->FenceValue = GraphicsFenceValue++;
+    Device->GraphicsCmdQueueSignal(GraphicsFence.get(), &FrameResources[InThreadIndex]->FenceValue);
 }
 
 void RenderGraph::WaitForGPU(UINT32 InThreadIndex)
 {
-    Device->WaitForGPU(Fence.get(), FrameResources[InThreadIndex]->FenceValue);
+    Device->WaitForGPU(GraphicsFence.get(), FrameResources[InThreadIndex]->FenceValue);
     Device->ClearFrameResource();
 }
 
