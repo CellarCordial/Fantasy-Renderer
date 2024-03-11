@@ -47,13 +47,17 @@ LRESULT Window::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_LBUTTONDOWN:
     case WM_MBUTTONDOWN:
-    case WM_RBUTTONDOWN:
         MouseEvent.Broadcast(EMouseActionType::Down, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), false);
+        return 0;
+    case WM_RBUTTONDOWN:
+        MouseEvent.Broadcast(EMouseActionType::Down, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), true);
         return 0;
     case WM_LBUTTONUP:
     case WM_MBUTTONUP:
+        MouseEvent.Broadcast(EMouseActionType::Down, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), false);
+        return 0;
     case WM_RBUTTONUP:
-        MouseEvent.Broadcast(EMouseActionType::Up, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), false);
+        MouseEvent.Broadcast(EMouseActionType::Up, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), true);
         return 0;
         
     case WM_MOUSEMOVE:

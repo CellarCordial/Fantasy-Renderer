@@ -16,7 +16,7 @@ void Renderer::Init()
     ModelDesc.ModelFilePath = "Asset/GLTFModel/Sponza/glTF/Sponza.gltf";
     ModelDesc.TextureFilePath = "Asset/GLTFModel/Sponza/glTF/";
     SamplePassImpl.Setup(ModelDesc, UploadDataCmdList.get());
-    //SetupEditorPass();
+    SetupEditorPass();
     CopyToBackBufferPass();
 }
 

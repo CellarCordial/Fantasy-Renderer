@@ -142,14 +142,6 @@ D3D12Descriptor D3D12Device::AllocateCPUDescriptor(ED3D12DescriptorType InType) 
     return Output;
 }
 
-/*
-void D3D12Device::ResizeWindow(UINT32 InWidth, UINT32 InHeight)
-{
-    Window::Resize(InWidth, InHeight);
-
-    
-}
-*/
 
 D3D12Descriptor D3D12Device::GetGPUDescriptor(UINT32 Index) const
 {

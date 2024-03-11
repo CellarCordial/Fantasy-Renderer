@@ -88,6 +88,7 @@ void SamplePass::Setup(const ModelLoadDesc& InModelLoadDesc, D3D12CommandList* I
         RGBufferRef Material;
         std::vector<RGTextureRef> Textures;
 
+        RGTextureRef DepthBuffer;
     };
     
     RenderGraphPassDesc PassDesc{};

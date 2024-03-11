@@ -168,7 +168,6 @@
     <ClCompile Include="Render\Renderer.cpp" />
     <None Include="Shaders\Sample.hlsl" />
     <ClCompile Include="Utility\ImageLoader.cpp" />
-    <ClCompile Include="Window\Render.cpp" />
     <ClCompile Include="Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -252,7 +251,6 @@
     <ClInclude Include="Utility\Serialization.h" />
     <ClInclude Include="Utility\TemplateType.h" />
     <ClInclude Include="Utility\Timer.h" />
-    <ClInclude Include="Window\Render.h" />
     <ClInclude Include="Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
